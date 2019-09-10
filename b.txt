@@ -1,7 +1,14 @@
 bbbbbbbbbbb
 bbbbbbbbbbbb
+<<<<<<< HEAD
 bbbbbbbbb
 heihiehhei
 hehheeh
 hahahha
+
+
+bbbbbbbb
+jsjsjsj
+kdkdkdk
+lglglgl
 

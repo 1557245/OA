@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件，存储sql语句  -->
+<!-- 命名空间：每个映射文件有一个独立的文件，目前使用实现类的类名  -->
+<mapper namespace="com.woniuxy.oa.mapper.UserMapper">
+	<select id="selectUserByAccount" resultType="User">
+		SELECT * FROM user WHERE account=#{account}
+	</select>
+	<insert id="insertUser">
+		INSERT INTO user values(#{account},#{password})
+	</insert>
+	
+</mapper>

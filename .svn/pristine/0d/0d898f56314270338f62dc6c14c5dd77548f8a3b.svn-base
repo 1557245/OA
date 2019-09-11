@@ -1,0 +1,66 @@
+package com.woniuxy.oa.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.woniuxy.oa.entity.User;
+import com.woniuxy.oa.service.UserService;
+import com.woniuxy.oa.utils.RegexUtil;
+
+@Controller
+public class LoginController {
+	@Autowired
+	UserService userService;
+
+	@RequestMapping("/user/login")
+	public String login(String account, String password, Model model, HttpServletRequest request) {
+		System.out.println(3333);
+		System.out.println(account);
+		System.out.println(password);
+//		User bean = User.newInstance();
+//		Map map = request.getParameterMap();
+//		BeanUtils.populate(bean, map);
+//		User bean = new User();
+//		bean.setPassword(request.getParameter("password"));
+//		bean.setUname(request.getParameter("uname"));
+
+		if (account == null || password == null) {
+			model.addAttribute("msg", "请输入用户名及密码");
+			model.addAttribute("uname", account);
+			return "login";
+		}
+
+		if (!account.matches(RegexUtil.REGEX_MOBILE)) {// 手机号不符
+			model.addAttribute("msg", "用户名格式不正确");
+			model.addAttribute("uname", account);
+			return "login";
+		}
+		if (!password.matches(RegexUtil.REGEX_PASSWORD)) {
+			model.addAttribute("msg", "密码格式不正确");
+			model.addAttribute("uname", account);
+			return "login";
+		}
+		User user = userService.getUserByUname(account);
+		if (user.getPassword() == null) {
+			model.addAttribute("msg", "用户名不存在");
+			model.addAttribute("uname", account);
+			return "login";
+		}
+		if (!user.getPassword().equals(password)) {
+			model.addAttribute("msg", "密码错误");
+			return "login";
+		}
+		//将用户名及职员id存入session
+		HttpSession session = request.getSession();
+		session.setAttribute("uname", account);
+		session.setAttribute("eid", user.getEid());
+		return "system/index/index";
+
+	}
+
+}

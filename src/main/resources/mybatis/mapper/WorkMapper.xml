@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件，存储sql语句  -->
+<!-- 命名空间：每个映射文件有一个独立的文件，目前使用实现类的类名  -->
+<mapper namespace="com.woniuxy.oa.mapper.WorkMapper">
+	<select id="selectAllWork" resultType="Work">
+		SELECT * FROM workplan WHERE pflag=0 order by createdate desc
+	</select>
+	<select id="selectWorkByName" resultType="Work">
+		SELECT * FROM workplan WHERE name LIKE  CONCAT('%',#{name},'%') AND pflag=0 order by createdate desc
+	</select>
+	<select id="selectWorkById" resultType="Work">
+		SELECT * FROM workplan WHERE wid=#{wid} AND pflag=0 order by createdate desc
+	</select>
+	<select id="selectTotalByWork" resultType="int">
+		SELECT COUNT(*) FROM workplan <include refid="ifFragment"></include>
+	</select>
+	<select id="selectWorkByWork" resultType="Work">
+		SELECT wid,name,p_eid,summary,problem,plan,DATE_FORMAT(createdate,'%Y-%m-%d') as createdate FROM workplan <include refid="ifFragment"></include> order by createdate desc LIMIT #{curent},#{num}
+	</select>
+	
+	<select id="selectWorkByWork1" resultType="Work">
+		SELECT wid,name,p_eid,summary,problem,plan,DATE_FORMAT(createdate,'%Y-%m-%d') as createdate FROM workplan 
+			WHERE pflag=0
+				<if test="work.name !=null and work.name !=''"> 
+					and name LIKE '%' #{work.name} '%'
+				</if> 
+				<if test="year !=null and year !=''"> 
+					and year(createdate) = #{year}
+				</if> 
+				<if test="month !=null and month !=''"> 
+					and month(createdate) = #{month}
+				</if> 
+				order by createdate desc LIMIT #{curent},#{num}
+	</select>
+	<sql id="ifFragment">
+			WHERE pflag=0
+		<if test="work.name !=null and work.name !=''"> 
+			and name LIKE '%' #{work.name} '%'
+		</if>
+		<!-- <if test="work.p_eid !=null and work.p_eid !=''"> 
+			and p_eid = #{work.p_eid}
+		</if> -->
+	</sql>
+	
+	<update id="updateWork" >
+		update workplan set name=#{work.name},summary=#{work.summary},problem=#{work.problem},plan=#{work.plan},createdate=#{work.create} WHERE wid=#{work.wid}
+	</update>
+	<update id="deleteWorkById">
+		<!-- DELETE FROM work WHERE wid=#{wid} -->
+		UPDATE workplan set pflag=1 WHERE wid=#{wid}
+	</update>
+	<update id="insertWork">
+		INSERT INTO workplan(name,summary,problem,plan,createdate) VALUES(#{name},#{summary},#{problem},#{plan},#{createdate})
+	</update>
+</mapper>

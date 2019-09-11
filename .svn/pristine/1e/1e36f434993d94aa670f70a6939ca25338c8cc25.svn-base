@@ -1,0 +1,10 @@
+package com.woniuxy.oa.entity;
+
+public class Test{
+	private int num;
+	private int no;
+	private String name;
+	private String address;
+	private int age;
+	
+}

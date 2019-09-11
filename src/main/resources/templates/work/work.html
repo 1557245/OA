@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+<title>工作计划</title>
+
+<style type="text/css">
+
+</style>
+</head>
+<body>
+	<div class="container" style="width: 100%; padding: 25px 15px;">
+		<div class="row clearfix">
+			<div class="col-md-12 column" style="padding: 20px;">
+				<div style="float: left;">
+					<!-- <input type="submit" class="btn btn-primary btn" value="添加" /> -->
+					<!-- <a th:href="@{/system/insert.html}" class="btn btn-primary btn">添加</a> -->
+					<a href="/toinsert" class="btn btn-primary btn">添加</a>
+				</div>
+				<form action="/work/showpart" method="post" id="userForm"
+					role="form" class="form-inline"
+					style="float: right; margin-bottom: 10px;">
+					<div class="form-group" style="margin-right: 20px;">
+						<label for="exampleInputEmail1" style="margin-right: 10px;">按年查询</label>
+							<input type="text" class="form-control" id="realName" name="year" placeholder="年份" />
+						<label for="exampleInputEmail1" style="margin-right: 10px;">按月查询</label>
+							<input type="text" class="form-control" id="realName" name="month" placeholder="月份" />
+						<label for="exampleInputEmail1" style="margin-right: 10px;">按姓名查询</label>
+							<input type="text" class="form-control" id="realName" name="name" placeholder="姓名" />
+					</div>
+					<button type="submit" class="btn btn-primary btn">查询</button>
+				</form>
+				<table class="table table-bordered" style="margin-top: 20px;">
+					<thead >
+						<tr >
+							<th style="width: 150px;text-align: center;">姓名</th>
+							<th style="width: 150px;text-align: center;">本周工作总结</th>
+							<th style="width: 150px;text-align: center;">本周遇到的问题</th>
+							<th style="width: 150px;text-align: center;">下周工作计划</th>
+							<th style="width: 90px;text-align: center;">时间</th>
+							<th style="width: 105px;text-align: center;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  th:each="work:${works.work}">
+							<td>[[${work.name}]]</td>
+							<td>[[${work.summary}]]</td>
+							<td>[[${work.problem}]]</td>
+							<td>[[${work.plan}]]</td>
+							<td>[[${#dates.format(work.createdate,'yyyy-MM-dd')}]]</td>
+							<td style="text-align: center;">
+								<form action="/work/select" style="float: left;">
+									<!-- <button class="btn btn-primary btn" value="1" th:onclick="update([[${work.wid}]])" >修改</button> -->
+									<input type="hidden" name="wid" th:value="${work.wid}">
+									<input type="submit" class="btn btn-primary btn" value="修改" >
+								</form>
+								 <form action="/work/delete" style="float: left;">
+									<!-- <button class="btn btn-primary btn" value="1" th:onclick="update([[${work.wid}]])" >修改</button> -->
+									<input type="hidden" name="wid" th:value="${work.wid}">
+									<input type="submit" class="btn btn-primary btn" value="删除" >
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 分页 -->
+				<a th:href="@{'/work/showpart?curent='+${works.curent-1}}" th:if="${works.curent > 1}" style="float:left;">上一页</a>
+				<div th:each="page:${works.pages}">
+					<div style="width:25px;height:20px;float:left;text-align:center;">
+						<span th:if="${page} ge ${works.beginPage} and ${page} le ${works.endPage}">
+							<a th:href="@{'/work/showpart?curent='+${page}}" th:if="${works.curent} != ${page}" >[[${page}]]</a>
+							<span th:if="${works.curent eq page}" style="color:red;">([[${page}]])</span>
+						</span>
+					</div>
+				</div>
+				<a th:href="@{'/work/showpart?curent='+${works.curent+1}}" th:if="${works.curent lt works.totalPage}">下一页</a>
+				<!-- <a th:href="@{${works.url}+'&curent='+${works.curent+1}}" th:if="${works.curent lt works.totalPage}">下一页</a> -->
+			</div>
+		</div>
+	</div>
+</body>
+
+<input type="hidden" th:value="${works.url}" id="url">
+<input type="hidden" th:value="${works.curent}" id="curent">
+<script type="text/javascript" th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script type="text/javascript"	th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<!-- <script type="text/javascript" th:src="@{/js/work/work.js}"></script> 用于分页，已弃用-->
+<script type="text/javascript">
+
+//  =$(function(){})
+$(document).ready(function() {
+	// 奇偶行分色 jquery一句搞定 就是这么简单
+	$("tbody tr:even").addClass("success");
+});
+	
+function update(wid){
+	/* 传wid，已弃用 */
+	alert(wid);
+	$.ajax({
+		url:"/work/select",
+		type:"POST",
+		data:{
+			wid:wid
+		},
+		dataType:"json",
+	});
+}
+
+
+
+
+</script>
+
+</html>

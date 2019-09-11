@@ -1,0 +1,10 @@
+package com.woniuxy.oa.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.woniuxy.oa.entity.Student;
+
+@Mapper
+public interface StudentMapper {
+	Student selectStudentBySid(Integer sid);
+}

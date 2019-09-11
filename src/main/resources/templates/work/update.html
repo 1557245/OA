@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+<title>工作计划</title>
+
+</head>
+<body>
+<div class="container" style="width: 100%;padding: 25px 15px;">
+    <div class="row clearfix">
+        <div class="col-md-12 column" style="padding: 20px;">
+            <div style="float: left;">
+                  <a href="/toinsert" class="btn btn-primary btn">添加</a>
+            </div>
+           <form action="/work/update" method="post"  onsubmit="return workplanUpdate()">
+           	<input type="hidden" name="wid" th:value="${work.wid}"/>
+           	<table class="table table-bordered" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">姓名</th>
+                        <th>本周工作总结</th>
+                        <th>本周遇到的问题</th>
+                        <th>下周工作计划</th>
+                        <th style="width: 150px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="success">
+                    	
+                        <td><input type="text" th:value="${work.name}" name="name"/></td>
+                        <td><input type="text" th:value="${work.summary}" name="summary"/></td>
+                        <td><input type="text" th:value="${work.problem}" name="problem"/></td>
+                        <td><input type="text" th:value="${work.plan}" name="plan"/></td>
+                        <td>
+                           <input type="submit" class="btn btn-primary btn" value="确认修改">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+           	
+           </form>
+            
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/workplan-info.js}"></script>
+<script type="text/javascript">
+	$(function(){
+		var msg=$("#msg").val();
+		if($.trim(msg)){
+			alert(msg);
+		}
+		
+	});
+
+</script>
+</html>

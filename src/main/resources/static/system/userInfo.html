@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+<title>新增用户</title>
+<style type="text/css">
+	.inputText{width: 430px !important;}
+	.rowDiv{margin-bottom: 15px;}
+	.form-lavel{width: 80px;text-align: right;}
+</style>
+</head>
+<body>
+	<div class="container" style="width: 100%;padding: 25px 15px;">
+		<div class="row clearfix">
+			<div class="col-md-12 column" style="padding: 20px;padding-top: 0px;">
+				<form action="#" method="post" id="userForm" enctype="multipart/form-data" role="form" class="form-inline" style="margin-bottom: 10px;">
+					<div id="userInfoDiv" class="form" style="padding:5px;">
+						<div class="row rowDiv">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="account">账号：</label>
+										<input type="hidden" name="id" value="${user.id }"/>
+									<input type="text" class="form-control inputText" value="翡翠" disabled="disabled">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="realName">姓名：</label>
+									<input type="text" class="form-control inputText" id="realName" name="realName" value="小泉">
+									<span style="color: red;">*</span>
+								</div>
+							</div>
+						</div>
+						<div class="row rowDiv">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="account">性别：</label>
+									<input type="radio" name="sex" value="0"/>男&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="sex" value="1"/>女&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="sex" value="2"/>未知
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="realName">年龄：</label>
+									<input type="text" class="form-control inputText" id="age" name="age" value="28">
+									<span style="color: red;">*</span>
+								</div>
+							</div>
+						</div>
+						<div class="row rowDiv">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="mobile">手机号：</label>
+									<input type="text" class="form-control inputText" id="mobile" name="mobile" value="13888888888">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="email">邮箱：</label>
+									<input type="text" class="form-control inputText" id="email" name="email" value="123@123.com">
+								</div>
+							</div>
+						</div>
+						<div class="row rowDiv">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="birthday">生日：</label>
+									<input type="text" class="form-control inputText" id="birthday" name="birthday" value="1989-08-08" placeholder="生日,如：01-12">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="identity">身份证：</label>
+									<input type="text" class="form-control inputText" id="identity" name="identity" value="12234455">
+								</div>
+							</div>
+						</div>
+						<div class="row rowDiv">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="birthday">所属职位：</label>
+									<select class="form-control" id="roleId" name="roleId">
+										<option value="0">总经理</option>
+										<option value="1">部门经理</option>
+										<option value="2">普通职员</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel">头像：</label>
+										<input type="file" name="file" style="display: inline-block;">
+										<img alt="" src="${headImg }" width="100" height="100">
+								</div>
+							</div>
+						</div>
+						<div class="row rowDiv">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="entryTime">入职日期：</label>
+									<input type="text" class="form-control inputText" id="entryTime" name="entryTime" value="2017-06-19" placeholder="入职日期，如：2017-01-01">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="form-lavel" for="status">员工状态：</label>
+									<select class="form-control" id="status" name="status">
+										<option value="0">试用期</option>
+										<option value="1">转正</option>
+										<option value="2">离职</option>
+									</select>
+								</div>
+							</div>
+						</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<input type="button" class="btn btn-primary btn" value="提交" onclick="javascript:location.href='userList.html'"/>
+									</div>
+								</div>
+							</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/user-info.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var method = '${method}';
+		if (method != 'update') {// 展示用户详情时，文本框禁止编辑
+			var texts = $("#userInfoDiv input[type='text']");
+			var selects = $("#userInfoDiv select");
+			$.each(texts, function(){
+				$(this).attr("readonly", true);
+			});
+			$.each(selects, function(){
+				$(this).attr("readonly", true);
+			});
+		}
+		
+	});
+</script>
+</html>

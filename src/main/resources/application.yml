@@ -1,0 +1,10 @@
+spring: 
+  datasource: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oa?serverTimezone=UTC
+    username: root
+    password: 123
+    type: com.alibaba.druid.pool.DruidDataSource
+#自定义配置文件的下载路径
+ws:
+   excelTemplateDpwloadPath: C:\Users\LuoDong\Desktop\downFile

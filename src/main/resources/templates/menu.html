@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>菜单</title>
+<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/css/menu.css}" />
+</head>
+<body>
+	<div class="container-fluid" style="padding: 0;">
+		<div class="row-fluid">
+			<div class="col-md-12" style="padding: 0;">
+				<ul id="main-nav" class="nav nav-tabs nav-stacked">
+					<li>
+						<a href="#systemSetting7" onclick="menuCss(this)" class="nav-header collapsed" data-toggle="collapse">
+							<i class="glyphicon glyphicon-envelope"></i>
+							<span style="display: inline-block;margin-left: 20px;">通知公告</span>
+							<span class="pull-right glyphicon glyphicon-chevron-down"></span>
+						</a>
+						<ul id="systemSetting7" class="nav nav-list collapse secondmenu" style="height: 0px;">
+							<li>
+								<a th:href="@{/noticeAddPage}" onclick="menuCss(this)" target="content" style="padding-left:25px;">发布公告</a>
+							</li>
+							<li>
+								<a th:href="@{/noticeExaminPage}" onclick="menuCss(this)" target="content" style="padding-left:25px;">公告审批</a>
+							</li>
+							<li>
+								<a th:href="@{/noticeMyPage}" onclick="menuCss(this)" target="content" style="padding-left:25px;">我的公告</a>
+							</li>
+						</ul>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript" th:src="@{/js/jquery-2.2.3.min.js}"></script>
+<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/menu.js}"></script>
+</body>
+</html>

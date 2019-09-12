@@ -1,0 +1,92 @@
+
+/* 我的公告页码显示栏 */
+#pageNum {
+	margin: 0 auto;
+	width: 800px;
+	height: 40px;
+	border: 2px solid silver;
+	margin-top: 25px;
+	border-radius: 0px;
+	padding: 0px;
+}
+
+#pageNum ul {
+	margin: 0 auto;
+	/* 	border: 1px solid red;  */
+	height: 35px;
+	width: 475px;
+}
+
+#pageNum ul li {
+	list-style-type: none;
+	float: left;
+	/* 	border: 1px solid red; */
+	margin-top: 6px;
+	margin-left: 30px;
+}
+
+#pageNum ul li:hover {
+	color: red;
+	cursor: pointer
+}
+
+/* 接收公告页码显示栏 */
+#pageNum1 {
+	margin: 0 auto;
+	width: 800px;
+	height: 40px;
+	border: 2px solid silver;
+	margin-top: 25px;
+	border-radius: 0px;
+	padding: 0px;
+}
+
+#pageNum1 ul {
+	margin: 0 auto;
+	/* 	border: 1px solid red;  */
+	height: 35px;
+	width: 475px;
+}
+
+#pageNum1 ul li {
+	list-style-type: none;
+	float: left;
+	/* 	border: 1px solid red; */
+	margin-top: 6px;
+	margin-left: 30px;
+}
+
+#pageNum1 ul li:hover {
+	color: red;
+	cursor: pointer
+}
+/* 审批公告页码显示栏 */
+#pageNum2 {
+	margin: 0 auto;
+	width: 800px;
+	height: 40px;
+	border: 2px solid silver;
+	margin-top: 25px;
+	border-radius: 0px;
+	padding: 0px;
+}
+
+#pageNum2 ul {
+	margin: 0 auto;
+	/* 	border: 1px solid red;  */
+	height: 35px;
+	width: 475px;
+}
+
+#pageNum2 ul li {
+	list-style-type: none;
+	float: left;
+	/* 	border: 1px solid red; */
+	margin-top: 6px;
+	margin-left: 30px;
+}
+
+#pageNum2 ul li:hover {
+	color: red;
+	cursor: pointer
+}

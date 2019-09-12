@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.oa.Mapper.NoticeMapper">
+
+	<select id="selectNoticeBynid" resultType="Notice">
+		select * from notice
+		where nid=#{nid}
+	</select>
+	<insert id="insertNotice">
+		insert into notice
+		values(null,#{n_eid},#{title},#{content},#{recipinets},#{publishtime},#{annex},#{nstate},#{nflag},null,null)
+	</insert>
+	<select id="selectAllEmps" resultType="Emps">
+		select * from emps
+	</select>
+
+	<select id="selectMyPublishNotice" resultType="Notice">
+		select * from
+		notice where n_eid = #{eid} limit #{selectStart},#{pageSize}
+	</select>
+
+	<select id="selectMyPublishNoticeCount" resultType="int">
+		SELECT
+		COUNT(*) from
+		notice where n_eid = #{eid}
+	</select>
+	<select id="selectWaitedNotice" resultType="Notice">
+		select * from
+		notice
+		where nid = #{nid}
+	</select>
+
+	<update id="updateNotice">
+		update notice set title=#{title},ncontent=#{content},
+		accept=#{recipinets},publishtime =#{publishtime}
+		where nid=#{nid}
+	</update>
+
+	<select id="selectReceivedNotice" resultType="Notice">
+		select * from
+		notice where accept like '%' #{ename} '%' and nstate=2
+		limit
+		#{selectStart1},#{pageSize1};
+	</select>
+
+	<select id="selectReceivedNoticeCount" resultType="int">
+		SELECT
+		COUNT(*) from
+		notice where accept like '%' #{ename} '%' and nstate=2
+	</select>
+
+	<select id="selectPublisher" resultType="Emps">
+		select * from emps where
+		eid=#{n_eid}
+	</select>
+
+
+	<select id="selectAllWaitedNotice" resultType="Notice">
+		select * from
+		notice where nstate=1 limit
+		#{selectStart2},#{pageSize2};
+	</select>
+
+	<select id="selectAllWaitedNoticeCount" resultType="int">
+		select COUNT(*) from
+		notice where nstate=1
+	</select>
+
+	<update id="agree">
+		update notice set nstate=2 where nid=#{nid}
+	</update>
+
+	<update id="refuse">
+		update notice set nstate=3 where nid=#{nid}
+	</update>
+</mapper>

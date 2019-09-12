@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	异常测试测试页面
+	<br> [[${message}]]
+	[[${publisdException}]]
+	<form th:action="@{/noticeAddPage}">
+		<input type="submit" value="重试 ">
+	</form>
+</body>
+</html>

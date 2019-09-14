@@ -20,10 +20,11 @@ public class NoticePublishServiceImpl implements NoticePublishService {
 	// 发布新公告
 	public void publishNotice(Integer n_eid, String title, String content, String recipinets, String annex) {
 		Integer nstate = 1;
+		Integer n_asid=1;
 		Integer nflag = 0;
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String publishtime = simpleDateFormat.format(new Date());
-		noticeMapper.insertNotice(n_eid, title, content, recipinets, publishtime, annex, nstate, nflag);
+		noticeMapper.insertNotice(n_eid,n_asid, title, content, recipinets, publishtime, annex, nstate, nflag);
 	}
 	
 

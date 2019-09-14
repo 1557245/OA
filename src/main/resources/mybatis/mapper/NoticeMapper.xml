@@ -8,17 +8,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from notice
 		where nid=#{nid}
 	</select>
+	<!--插入公告 -->
 	<insert id="insertNotice">
 		insert into notice
-		values(null,#{n_eid},#{title},#{content},#{recipinets},#{publishtime},#{annex},#{nstate},#{nflag},null,null)
+		values(null,#{n_eid},#{n_asid},#{title},#{content},#{recipinets},#{publishtime},#{annex},#{nstate},#{nflag},null,null)
 	</insert>
+	<!-- 查找接收人 -->
 	<select id="selectAllEmps" resultType="Emps">
-		select * from emps
+		select * from emp
 	</select>
 
+	<!-- 查看我发布的公告 -->
 	<select id="selectMyPublishNotice" resultType="Notice">
 		select * from
 		notice where n_eid = #{eid} limit #{selectStart},#{pageSize}
+	</select>
+	<!-- 查询公告的状态-->
+	<select id="selectNoticeState" resultType="String">
+		select asstate from
+		approval_state where asid = #{n_asid}
 	</select>
 
 	<select id="selectMyPublishNoticeCount" resultType="int">
@@ -37,10 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		accept=#{recipinets},publishtime =#{publishtime}
 		where nid=#{nid}
 	</update>
-
+	<!-- 查询接收的公告 -->
 	<select id="selectReceivedNotice" resultType="Notice">
 		select * from
-		notice where accept like '%' #{ename} '%' and nstate=2
+		notice where accept like '%' #{eidename} '%' and n_asid=2
 		limit
 		#{selectStart1},#{pageSize1};
 	</select>
@@ -48,31 +56,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectReceivedNoticeCount" resultType="int">
 		SELECT
 		COUNT(*) from
-		notice where accept like '%' #{ename} '%' and nstate=2
+		notice where accept like '%' #{eidename} '%' and n_asid=2
 	</select>
 
 	<select id="selectPublisher" resultType="Emps">
-		select * from emps where
+		select * from emp where
 		eid=#{n_eid}
 	</select>
 
 
 	<select id="selectAllWaitedNotice" resultType="Notice">
 		select * from
-		notice where nstate=1 limit
+		notice where n_asid=1 limit
 		#{selectStart2},#{pageSize2};
 	</select>
 
 	<select id="selectAllWaitedNoticeCount" resultType="int">
-		select COUNT(*) from
-		notice where nstate=1
+		select
+		COUNT(*) from
+		notice where n_asid=1 
 	</select>
 
 	<update id="agree">
-		update notice set nstate=2 where nid=#{nid}
+		update notice set n_asid=2 where nid=#{nid}
 	</update>
 
 	<update id="refuse">
-		update notice set nstate=3 where nid=#{nid}
+		update notice set n_asid=3 where nid=#{nid}
 	</update>
 </mapper>

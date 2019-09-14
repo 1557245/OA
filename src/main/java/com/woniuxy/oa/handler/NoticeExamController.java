@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.woniuxy.oa.config.ConfigProperties;
 import com.woniuxy.oa.entity.Notice;
 import com.woniuxy.oa.service.NoticeExamService;
 
@@ -22,8 +21,7 @@ import com.woniuxy.oa.service.NoticeExamService;
 public class NoticeExamController {
 	@Autowired
 	NoticeExamService noticeExamService;
-	@Autowired
-	private ConfigProperties configProperties;
+
 
 	@RequestMapping("/noticeExaminPage")
 	public String noticeExaminPage() {
@@ -35,7 +33,7 @@ public class NoticeExamController {
 	@RequestMapping("/allWaitNotice")
 	@ResponseBody
 	public Map<String,Object> getAllWaitNotice(@RequestBody Integer  pageNum3) {
-		System.out.println("getAllWaitNotice");
+	 	System.out.println("getAllWaitNotice");
 		Integer  pageSize3 =8;
 		Integer selectStart2=(pageNum3-1)*pageSize3;
 		List<Notice> allWaitedNotice = noticeExamService.getAllWaitedNotice(selectStart2,pageSize3);

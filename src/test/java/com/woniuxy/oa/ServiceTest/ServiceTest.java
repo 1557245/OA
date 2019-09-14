@@ -23,21 +23,16 @@ public class ServiceTest {
 	public void test() {
 
 	}
-	
+	// 我的公告
 	@Test
 	public void testgetMyPublishNotice() {
-//		List<Notice> myPublishNotice = nocticeMyService.getMyPublishNotice(1);
-		
-//		System.out.println(myPublishNotice);
+		List<Notice> myPublishNotice = nocticeMyService.getMyPublishNotice(1, 0, 5);
+		System.out.println(myPublishNotice);
 	}
+	// 我接收的公告
 	@Test
-	public void testgetAllWaitedNotice() {
-//		List<Notice> allWaitedNotice = nocticeExamService.getAllWaitedNotice();
-//		System.out.println(allWaitedNotice);
-	}
-	@Test
-	public void testagree() {
-		nocticeExamService.agree(67);
-		
+	public void testgetMyReceivedNotice() {
+		List<Notice> myReceivedNotice = nocticeMyService.getMyReceivedNotice("罗东", 0, 5);
+		System.out.println(myReceivedNotice);
 	}
 }

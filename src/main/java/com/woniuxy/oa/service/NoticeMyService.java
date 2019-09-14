@@ -7,7 +7,7 @@ import com.woniuxy.oa.entity.Notice;
 public interface NoticeMyService {
 	// 获取我发布的公告(带了分页条件的)
 	List<Notice> getMyPublishNotice(Integer eid, Integer selectStart, Integer pageSize);
-	// 后去总页数
+	// 获取总页数
 	Integer getTotalPage(Integer eid,Integer pageSize);
 	// 获取修改的公告的信息进行回显
 	public Notice updateMyNotice(Integer nid);

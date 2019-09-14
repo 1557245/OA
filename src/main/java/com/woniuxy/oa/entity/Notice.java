@@ -9,6 +9,7 @@ public class Notice implements Serializable {
 	
 	private Integer nid;// 公告id
 	private Integer n_eid;// 发布人id
+	private Integer n_asid;// 状态  关联外键
 	private String title;// 公告标题
 	private String ncontent;// 公告内容
 	private String accept;// 公告接收人
@@ -29,6 +30,12 @@ public class Notice implements Serializable {
 	}
 	public void setN_eid(Integer n_eid) {
 		this.n_eid = n_eid;
+	}
+	public Integer getN_asid() {
+		return n_asid;
+	}
+	public void setN_asid(Integer n_asid) {
+		this.n_asid = n_asid;
 	}
 	public String getTitle() {
 		return title;
@@ -86,15 +93,16 @@ public class Notice implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Notice [nid=" + nid + ", n_eid=" + n_eid + ", title=" + title + ", ncontent=" + ncontent + ", accept="
-				+ accept + ", publishtime=" + publishtime + ", annex=" + annex + ", nstate=" + nstate + ", fontstate="
-				+ fontstate + ", nflag=" + nflag + ", publisher=" + publisher + "]";
+		return "Notice [nid=" + nid + ", n_eid=" + n_eid + ", n_asid=" + n_asid + ", title=" + title + ", ncontent="
+				+ ncontent + ", accept=" + accept + ", publishtime=" + publishtime + ", annex=" + annex + ", nstate="
+				+ nstate + ", fontstate=" + fontstate + ", nflag=" + nflag + ", publisher=" + publisher + "]";
 	}
-	public Notice(Integer nid, Integer n_eid, String title, String ncontent, String accept, Date publishtime,
-			String annex, Integer nstate, String fontstate, Integer nflag, String publisher) {
+	public Notice(Integer nid, Integer n_eid, Integer n_asid, String title, String ncontent, String accept,
+			Date publishtime, String annex, Integer nstate, String fontstate, Integer nflag, String publisher) {
 		super();
 		this.nid = nid;
 		this.n_eid = n_eid;
+		this.n_asid = n_asid;
 		this.title = title;
 		this.ncontent = ncontent;
 		this.accept = accept;
@@ -109,7 +117,6 @@ public class Notice implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 	
 }

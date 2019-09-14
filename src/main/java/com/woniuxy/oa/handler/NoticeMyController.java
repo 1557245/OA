@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +42,7 @@ public class NoticeMyController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Integer pageSize = 8;
 		Integer selectStart = (pageNum - 1) * pageSize;
-		Integer eid = 1;
+		Integer eid = 2;
 		List<Notice> myPublishNotice = noticeMyService.getMyPublishNotice(eid, selectStart, pageSize);
 		Integer totalPage = noticeMyService.getTotalPage(eid, pageSize);
 		result.put("Notice", myPublishNotice);
@@ -106,9 +105,10 @@ public class NoticeMyController {
 		Map<String, Object> result1 = new HashMap<String, Object>();
 		Integer pageSize1 = 8;
 		Integer selectStart1 = (pageNum1 - 1) * pageSize1;
-		String accept = "罗东";
-		List<Notice> myReceivedNotice = noticeMyService.getMyReceivedNotice(accept, selectStart1, pageSize1);
-		Integer receivedTotalPage = noticeMyService.getReceivedTotalPage(accept, pageSize1);
+		// 接收人从当前的登录人获取
+		String idaccept = "2罗东";
+		List<Notice> myReceivedNotice = noticeMyService.getMyReceivedNotice(idaccept, selectStart1, pageSize1);
+		Integer receivedTotalPage = noticeMyService.getReceivedTotalPage(idaccept, pageSize1);
 		System.out.println(receivedTotalPage);
 		result1.put("myReceivedNotice", myReceivedNotice);
 		result1.put("receivedTotalPage", receivedTotalPage);

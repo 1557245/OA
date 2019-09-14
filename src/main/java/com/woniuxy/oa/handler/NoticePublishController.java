@@ -42,7 +42,7 @@ public class NoticePublishController {
 		ModelAndView mv = new ModelAndView();
 		String annexroute = null;// 附件的文件路径
 		String recipinets = "";// 接收人
-		Integer n_eid = 1;// 发件人
+		Integer n_eid = 2;// 发件人
 		try {
 			if (annex.isEmpty()) {
 				// 没有附件的情况
@@ -60,7 +60,7 @@ public class NoticePublishController {
 				recipinets += recip + ",";
 			}
 			// 公告正式插入
-			noticePublishService.publishNotice(n_eid, title, content, recipinets, annexroute);
+			noticePublishService.publishNotice(n_eid,title, content, recipinets, annexroute);
 			mv.setViewName("noticeMy");
 		} catch (Exception e) {
 			mv.addObject("publisdException", "公告发布失败");

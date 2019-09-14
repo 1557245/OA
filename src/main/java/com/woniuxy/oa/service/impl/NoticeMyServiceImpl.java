@@ -21,14 +21,8 @@ public class NoticeMyServiceImpl implements NoticeMyService {
 	public List<Notice> getMyPublishNotice(Integer eid, Integer selectStart, Integer pageSize) {
 		List<Notice> myPublishNotice = noticeMapper.selectMyPublishNotice(eid, selectStart, pageSize);
 		for (Notice notice : myPublishNotice) {
-			Integer nstate = notice.getNstate();
-			if (nstate == 1) {
-				notice.setFontstate("待审批");
-			} else if (nstate == 2) {
-				notice.setFontstate("同意");
-			} else if (nstate == 3) {
-				notice.setFontstate("拒绝");
-			}
+			Integer n_asid = notice.getN_asid();
+			notice.setFontstate(noticeMapper.selectNoticeState(n_asid));	
 		}
 		return myPublishNotice;
 	}
@@ -55,18 +49,13 @@ public class NoticeMyServiceImpl implements NoticeMyService {
 	}
 
 	// 我接收的公告
-	public List<Notice> getMyReceivedNotice(String name, Integer selectStart1, Integer pageSize1) {
+	public List<Notice> getMyReceivedNotice(String idname, Integer selectStart1, Integer pageSize1) {
 
-		List<Notice> receivedNotice = noticeMapper.selectReceivedNotice(name, selectStart1, pageSize1);
+		List<Notice> receivedNotice = noticeMapper.selectReceivedNotice(idname, selectStart1, pageSize1);
 		for (Notice notice : receivedNotice) {
-			Integer nstate = notice.getNstate();
-			if (nstate == 1) {
-				notice.setFontstate("待审批");
-			} else if (nstate == 2) {
-				notice.setFontstate("同意");
-			} else if (nstate == 3) {
-				notice.setFontstate("拒绝");
-			}
+			// 获取公告状态
+			Integer n_asid = notice.getN_asid();
+			notice.setFontstate(noticeMapper.selectNoticeState(n_asid));	
 			// 添加发布人姓名
 			notice.setPublisher(noticeMapper.selectPublisher(notice.getN_eid()).getEname());
 		}

@@ -56,7 +56,7 @@ function myPublishNotice(pageNum) {
 						+ '<td>' + po.nid + '</td>' 
 						+ '<td>' + po.title + '</td>' 
 						+ '<td>' + po.ncontent + '</td>'
-						+ '<td>' + isHaveAnnex(po.nstate,po.annex) + '</td>' 
+						+ '<td>' + isHaveAnnex(po.n_asid,po.annex,po.nid) + '</td>' 
 						+ '<td>' + dateFormat(po.publishtime) + '</td>' 
 						+ '<td>' + po.fontstate + '</td>' 
 						+ '<td>' + isUpdate(po.n_asid, po.nid) + '</td>' 
@@ -108,23 +108,23 @@ function dateFormat(publishTime) {
 }
 
  // 附件有无的操作显示 只有是审批通过的公告才能 有附件操作。首先判断是否有附件
-function isHaveAnnex(annexStaues,annex2) {
+function isHaveAnnex(annexStaues,annex2,nid) {
 	if(annex2=='无附件'){
 		return '无附件'
 	}else{
 		if (annexStaues == 1 || annexStaues == 3) {
 			return '不可操作'
 		} else{
-			return '<button onclick="downloadFile(\''+annex2+'\')" class="btn btn-primary btn" >' + '下载' + '</button>'
+			return '<button onclick="downloadFile(\''+nid+'\')" class="btn btn-primary btn" >' + '下载' + '</button>'
 		}
 	}
 }
  // 审批界面附件的特殊处理
-function isHaveExamAnnex(annex) {
+function isHaveExamAnnex(annex,nid) {
 	if(annex=='无附件'){
 		return '无附件'
 	}else{
-			return '<button class="btn btn-primary btn" >' + '下载' + '</button>'
+		return '<button onclick="downloadFile(\''+nid+'\')" class="btn btn-primary btn" >' + '下载' + '</button>'
 	}
 }
 
@@ -171,7 +171,7 @@ function receivedNotcie(pageNum1) {
 							+ '<td>' + po.nid + '</td>' 
 							+ '<td>' + po.title + '</td>' 
 							+ '<td>' + po.ncontent + '</td>'
-							+ '<td>' + isHaveAnnex(po.nstate,po.annex) + '</td>' 
+							+ '<td>' + isHaveAnnex(po.n_asid,po.annex,po.nid) + '</td>' 
 							+ '<td>' + dateFormat(po.publishtime) + '</td>' 
 							+ '<td>' + po.publisher+ '</td>' 
 							+'</tr>' 
@@ -232,7 +232,7 @@ function getAllWaitedNotice(pageNum3){
 							+ '<td>' + po.nid + '</td>' 
 							+ '<td>' + po.title + '</td>' 
 							+ '<td>' + po.ncontent + '</td>'
-							+ '<td>' + isHaveExamAnnex(po.annex) + '</td>' 
+							+ '<td>' + isHaveExamAnnex(po.annex,po.nid) + '</td>' 
 							+ '<td>' + dateFormat(po.publishtime) + '</td>' 
 							+ '<td>' + po.publisher+ '</td>' 
 							+ '<td>' 
@@ -314,17 +314,15 @@ function refuse(nid){
 }
 
 // 文件下载
-function downloadFile(fileRote){
-	alert("测试文件方法");
+function downloadFile(noticeId){
 	$.ajax({
 		contentType : "application/json; charset=utf-8",
 		type : "post",
-		url : "downloadFile",
-		data : JSON.stringify(fileRote),
+		url : "downloadFilePara",
+		data : JSON.stringify(noticeId),
 		dataType : "json",
 		success : function(data) {
-			alert("进来了");
-			alert(data);
+			window.location.href = "toDownloadFile";
 		},
 	})
 }

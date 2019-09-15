@@ -85,4 +85,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="refuse">
 		update notice set n_asid=3 where nid=#{nid}
 	</update>
+	
+	
+	<select id="selectNoticeFile" resultType="Notice">
+		select * from
+		notice where nid=#{nidPara};
+	</select>
+	
 </mapper>

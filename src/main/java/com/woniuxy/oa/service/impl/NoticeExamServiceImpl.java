@@ -29,7 +29,8 @@ public class NoticeExamServiceImpl implements NoticeExamService {
 	@Override
 	public Integer getAllWaitedNoticeCount(Integer pageSize2) {
 		Integer alllWaitedNoticeCount = noticeMapper.selectAllWaitedNoticeCount();
-		Integer totalPage2=(alllWaitedNoticeCount%pageSize2==0?alllWaitedNoticeCount/pageSize2:alllWaitedNoticeCount/pageSize2+1);
+		Integer totalPage2 = (alllWaitedNoticeCount % pageSize2 == 0 ? alllWaitedNoticeCount / pageSize2
+				: alllWaitedNoticeCount / pageSize2 + 1);
 		return totalPage2;
 	}
 	// 同意
@@ -41,5 +42,12 @@ public class NoticeExamServiceImpl implements NoticeExamService {
 	// 拒绝
 	public void refuse(Integer nid) {
 		noticeMapper.refuse(nid);
+	}
+
+	// 获取下载文件的信息
+	@Override
+	public Notice getFile(Integer nidPara) {
+		Notice notice = noticeMapper.selectNoticeFile(nidPara);
+		return notice;
 	}
 }

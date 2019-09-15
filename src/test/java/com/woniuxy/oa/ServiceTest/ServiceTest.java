@@ -35,4 +35,9 @@ public class ServiceTest {
 		List<Notice> myReceivedNotice = nocticeMyService.getMyReceivedNotice("罗东", 0, 5);
 		System.out.println(myReceivedNotice);
 	}
+	
+	@Test
+	public void testgetFile() {
+		System.out.println(nocticeExamService.getFile(8));
+	}
 }

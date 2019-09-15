@@ -47,4 +47,6 @@ public interface NoticeMapper {
 
 	// 驳回
 	void refuse(Integer nid);
+
+	Notice selectNoticeFile(Integer nidPara);
 }

@@ -1,18 +1,20 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>错误详情</title>
+<title>附件下载</title>
 <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}" />
 <link rel="stylesheet" th:href="@{/css/pagging.css}" />
 </head>
 <body>
 	<div id="middleAndCenter">
-		<br> [[${message}]] [[${publisdException}]]</br></br>
-		<form th:action="@{/noticeAddPage}">
-			<input class="btn btn-primary btn" type="submit" value="重试 ">
-		</form>
+	<form th:action="@{/downloadFile}">
+	</br>
+		文件详情：
+			 [[${fileMsg}]]</br></br>
+		<a th:href="@{/noticeMyPage}" class="btn btn-primary btn">返回</a>
+		<input type="submit" class="btn btn-primary btn" value="下载 ">
+	</form>
 	</div>
 </body>
 </html>

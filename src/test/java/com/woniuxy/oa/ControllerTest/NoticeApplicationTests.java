@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.woniuxy.oa.controller.NoticeExamController;
 import com.woniuxy.oa.controller.NoticeMyController;
 import com.woniuxy.oa.controller.NoticePublishController;
 
@@ -19,7 +20,8 @@ public class NoticeApplicationTests {
 	NoticePublishController noticePublishController;
 	@Autowired
 	NoticeMyController noticeMyController;
-
+	@Autowired
+	NoticeExamController noticeExamController;
 	@Test
 	public void contextLoads() {
 
@@ -35,4 +37,6 @@ public class NoticeApplicationTests {
 	public void test() {
 
 	}
+	
+	
 }

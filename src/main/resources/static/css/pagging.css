@@ -1,4 +1,13 @@
-
+#middleAndCenter {
+	margin: 0 auto;
+	width: 500px;
+	height: 150px;
+	border: 2px solid silver;
+	margin-top: 200px;
+	text-align: center;
+	font-size: 20px;
+	padding: 0px;
+}
 /* 我的公告页码显示栏 */
 #pageNum {
 	margin: 0 auto;

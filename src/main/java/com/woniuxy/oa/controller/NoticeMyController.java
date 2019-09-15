@@ -28,16 +28,22 @@ public class NoticeMyController {
 	NoticePublishService noticePublishService;
 
 	@RequestMapping("/noticeMyPage")
-	public String noticeMyPage() {
-		System.out.println("noticeMyPage");
+	public String noticeMyPage(Model model) {
+		try {
+			return "noticeMy";
+		} catch (Exception e) {
+			model.addAttribute("publisdException", "去我的公告途中发生了意外");
+			return "noticeExceptionMsg";
+		}
 
-		return "noticeMy";
+		
 	}
 
 	// 我的公告页面跳转,还要传递总页码给前台
 	@RequestMapping("/noticeMyPageItem")
 	@ResponseBody
-	public Map<String, Object> noticeMyPageItem(@RequestBody Integer pageNum) {
+	public Map<String, Object> noticeMyPageItem(@RequestBody Integer pageNum,Model model) {
+		
 		System.out.println("noticeMyPageItem:");
 		Map<String, Object> result = new HashMap<String, Object>();
 		Integer pageSize = 8;
@@ -70,31 +76,28 @@ public class NoticeMyController {
 		System.out.println("nnid:::" + nnid);
 		Notice updatedMyNotice = noticeMyService.updateMyNotice(nnid);
 		List<Emps> empslist = noticePublishService.empslist();
-
 		model.addAttribute("updatedMyNotice", updatedMyNotice);
 		model.addAttribute("anncept", empslist);
-
 		return "noticeDetail";
 	}
 
 	// 修改之后的内容更新
 	@RequestMapping("/noticeDetail")
 	public String noticeDetail(Integer id, String title, String content,
-			@RequestParam("recipinet") String[] recipinet) {
-		String recipinets = "";// 接收人
-		// 接收人字符串拼接
-		for (String recip : recipinet) {
-			recipinets += recip + ",";
+			@RequestParam("recipinet") String[] recipinet,Model model) {
+		try {
+			String recipinets = "";// 接收人
+			// 接收人字符串拼接
+			for (String recip : recipinet) {
+				recipinets += recip + ",";
+			}
+			noticeMyService.updateNotice(id, title, content, recipinets);
+			return "noticeMy";
+		} catch (Exception e) {
+			model.addAttribute("publisdException", "修改公告发生了意外");
+			return "noticeExceptionMsg";
 		}
-		noticeMyService.updateNotice(id, title, content, recipinets);
-		return "noticeMy";
-	}
-
-	// 附件下载
-	@RequestMapping("/downloadAnnex")
-	public void downloadAnnex() {
-		System.out.println("666666");
-
+		
 	}
 
 	// 接收的公告

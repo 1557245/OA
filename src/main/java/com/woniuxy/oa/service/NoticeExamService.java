@@ -13,6 +13,7 @@ public interface NoticeExamService {
 	public void agree(Integer nid);
 	// 拒绝
 	public void refuse(Integer nid);
+	Notice getFile(Integer nidPara);
 	
 	
 }

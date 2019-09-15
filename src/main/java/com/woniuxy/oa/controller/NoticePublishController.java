@@ -30,9 +30,14 @@ public class NoticePublishController {
 	// 跳转发布公告页面,同时查出所有的联系人，放在接收人列表上面
 	@RequestMapping("/noticeAddPage")
 	public String noticeAddPage(Model model) {
-		List<Emps> empslist = noticePublishService.empslist();
-		model.addAttribute("anncept", empslist);
-		return "noticeAdd";
+		try {
+			List<Emps> empslist = noticePublishService.empslist();
+			model.addAttribute("anncept", empslist);
+			return "noticeAdd";
+		} catch (Exception e) {
+			model.addAttribute("publisdException", "去公告发布途中发生了意外");
+			return "noticeExceptionMsg";
+		}
 	}
 
 	// 发布新公告,待发布的公告编辑完成之后，页面转向我的公告页面noticeMy
@@ -48,7 +53,7 @@ public class NoticePublishController {
 				// 没有附件的情况
 				annexroute = "无附件";
 			} else {
-				// 有附件的时候  得出附件的文件路径
+				// 有附件的时候 得出附件的文件路径
 				byte[] bytes = null;
 				bytes = annex.getBytes();
 				Path path = Paths.get("E:\\fileUpload/" + annex.getOriginalFilename());
@@ -60,7 +65,7 @@ public class NoticePublishController {
 				recipinets += recip + ",";
 			}
 			// 公告正式插入
-			noticePublishService.publishNotice(n_eid,title, content, recipinets, annexroute);
+			noticePublishService.publishNotice(n_eid, title, content, recipinets, annexroute);
 			mv.setViewName("noticeMy");
 		} catch (Exception e) {
 			mv.addObject("publisdException", "公告发布失败");

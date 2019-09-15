@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.woniuxy.oa.handler.NoticeMyController;
-import com.woniuxy.oa.handler.NoticePublishController;
+import com.woniuxy.oa.controller.NoticeMyController;
+import com.woniuxy.oa.controller.NoticePublishController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

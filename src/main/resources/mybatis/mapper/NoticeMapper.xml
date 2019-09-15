@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		COUNT(*) from
 		notice where n_eid = #{eid}
 	</select>
+	
 	<select id="selectWaitedNotice" resultType="Notice">
 		select * from
 		notice

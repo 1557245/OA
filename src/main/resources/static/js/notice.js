@@ -59,7 +59,7 @@ function myPublishNotice(pageNum) {
 						+ '<td>' + isHaveAnnex(po.nstate,po.annex) + '</td>' 
 						+ '<td>' + dateFormat(po.publishtime) + '</td>' 
 						+ '<td>' + po.fontstate + '</td>' 
-						+ '<td>' + isUpdate(po.nstate, po.nid) + '</td>' 
+						+ '<td>' + isUpdate(po.n_asid, po.nid) + '</td>' 
 						+ '</tr>'
 			} // <button class="btn btn-primary btn" >下载附件</button>
 			$("#publishTable").html(content);

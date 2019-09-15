@@ -45,7 +45,7 @@
 											<tbody>
 											<tr th:each="empslist:${anncept}">
 												<td><input type="checkbox" name="recipinet"
-													th:text="${empslist.eid}" th:value="${empslist.ename}" />
+													th:text="${empslist.eid}" th:value="${empslist.eid+empslist.ename}" />
 												</td>
 												<td th:text="${empslist.ename}"></td>
 											</tr>

@@ -22,10 +22,13 @@
 	</select>
 	
 	<select id="selectWorkByWork1" resultType="Work">
-		SELECT wid,name,p_eid,summary,problem,plan,DATE_FORMAT(createdate,'%Y-%m-%d') as createdate FROM workplan 
+		SELECT wid,name,eid,summary,problem,plan,DATE_FORMAT(createdate,'%Y-%m-%d') as createdate FROM workplan 
 			WHERE pflag=0
 				<if test="work.name !=null and work.name !=''"> 
 					and name LIKE '%' #{work.name} '%'
+				</if> 
+				<if test="work.eid !=null and work.eid !=''"> 
+					and eid = #{work.eid}
 				</if> 
 				<if test="year !=null and year !=''"> 
 					and year(createdate) = #{year}
@@ -40,8 +43,8 @@
 		<if test="work.name !=null and work.name !=''"> 
 			and name LIKE '%' #{work.name} '%'
 		</if>
-		<!-- <if test="work.p_eid !=null and work.p_eid !=''"> 
-			and p_eid = #{work.p_eid}
+		<!-- <if test="work.eid !=null and work.eid !=''"> 
+			and eid = #{work.eid}
 		</if> -->
 	</sql>
 	

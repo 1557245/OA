@@ -70,11 +70,10 @@ public class WorkServiceImpl implements WorkService {
 
 	@Override
 	public WorkPart<Work> showPartByWork1(int num, Integer curent, Work work, Integer year, Integer month) {
+		System.out.println("service----------showPartByWork1");
 		WorkPart<Work> works= new WorkPart<Work>();
 		List<Work> lwork=workMapper.selectWorkByWork1((curent-1)*num,num,work,year,month);
-		
 		int total=workMapper.selectTotalByWork(work);
-		
 		works.setWork(lwork);
 		works.setTotal(total);
 		works.setNum(num);
@@ -82,8 +81,10 @@ public class WorkServiceImpl implements WorkService {
 		works.setTotalPage();
 		works.setBeginPageANDEndPage();
 		works.setPages();
-		
+		System.out.println("servicezhelile ");
 		return works;
 	}
+
+	
 
 }

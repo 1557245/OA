@@ -24,4 +24,9 @@ public class UserServiceImpl implements UserService {
 		userMapper.insertUser(account,password,eid);
 	}
 
+	@Override
+	public void updatePasswordByAccount(String account, String newpwd) {
+		userMapper.updatePasswordByAccount(account,newpwd);
+	}
+
 }

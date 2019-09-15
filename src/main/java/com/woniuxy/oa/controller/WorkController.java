@@ -98,11 +98,13 @@ public class WorkController {
 				Integer smonth = (Integer) request.getSession().getAttribute("month");
 				if(smonth!=null) {
 					month=smonth;
+//					model.addAttribute("month", month);
 				}else {
 					System.out.println("smonth==null");
 				}
 			}else {
 				request.getSession().setAttribute("month", month);
+//				model.addAttribute("month", month);
 			}
 			
 			if (work.getName() == null && work.getPlan() == null && work.getProblem() == null
@@ -125,13 +127,81 @@ public class WorkController {
 			System.out.println("url:::" + url);
 			wp.setUrl(url);
 			model.addAttribute("works", wp);
-			System.out.println(wp);
+			System.out.println("this");
+			
+			System.out.println("wp:"+wp);
 			return "work/work";
 		} catch (Exception e) {
 			model.addAttribute("msg", e.getMessage());
 			return "work/work";
 		}
 	}
+	
+	/**
+	 * 查看自己的工作计划
+	 * @param work
+	 * @param year
+	 * @param month
+	 * @param curent
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/work/mywork")
+	public String mywork(Work work, Integer year, Integer month, Integer curent, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("/work/showpart"); 
+		try {
+			WorkPart<Work> wp = new WorkPart<Work>();
+			int num = 5;
+			if (curent == null) {
+				curent = 1;
+			}
+			
+			if(year==null) {
+				Integer syear = (Integer) request.getSession().getAttribute("year");
+				if(syear!=null) {
+					year=syear;
+//					model.addAttribute("year", year);
+				}else {
+					System.out.println("syear==null");
+				}
+			}else {
+				request.getSession().setAttribute("year", year);
+//				model.addAttribute("year", year);
+			}
+			if(month==null) {
+				Integer smonth = (Integer) request.getSession().getAttribute("month");
+				if(smonth!=null) {
+					month=smonth;
+//					model.addAttribute("month", month);
+				}else {
+					System.out.println("smonth==null");
+				}
+			}else {
+				request.getSession().setAttribute("month", month);
+//				model.addAttribute("month", month);
+			}
+			System.out.println(work);
+			Integer eid = (Integer) request.getSession().getAttribute("eid");
+			work.setEid(eid);
+			//获取本eid的works
+			wp = workService.showPartByWork1(num, curent, work, year, month);
+			String url = getUrl(request, response);
+			System.out.println("条件：" + work);
+			System.out.println("url:::" + url);
+			wp.setUrl(url);
+			model.addAttribute("works", wp);
+			System.out.println(wp);
+			return "work/work";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "work/mywork";
+		}
+	}
+	
+	
 
 	/*
 	 * @RequestMapping("/work/lastpage") public String lastpage(Work work, Model

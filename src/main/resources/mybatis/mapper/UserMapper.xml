@@ -11,5 +11,7 @@
 	<insert id="insertUser">
 		INSERT INTO user values(#{account},#{password})
 	</insert>
-	
+	<update id="updatePasswordByAccount">
+		UPDATE user SET saltpassword=#{password} WHERE account=#{account}
+	</update>
 </mapper>

@@ -14,16 +14,17 @@ import com.woniuxy.oa.service.UserService;
 import com.woniuxy.oa.utils.RegexUtil;
 
 @Controller
-public class LoginController {
+public class UserController {
 	@Autowired
 	UserService userService;
 
 	
-	@RequestMapping("/user/login")
+	@RequestMapping("/user/login") 
 	public String login(String account, String password, Model model, HttpServletRequest request) {
 		if (account == null || password == null) {
 			model.addAttribute("msg", "请输入用户名及密码");
 			model.addAttribute("account", account);
+			
 			return "login";
 		}
 
@@ -56,6 +57,7 @@ public class LoginController {
 		HttpSession session = request.getSession();
 		session.setAttribute("account", account);
 		session.setAttribute("eid", user.getEid());
+		session.setAttribute("power", user.getPower());
 		return "system/index/index";
 
 	}
@@ -106,5 +108,88 @@ public class LoginController {
 			return "register";
 		}
 	}
+	
+	
+	/**
+	 * 修改密码
+	 * @param model
+	 * @param oldpwd
+	 * @param newpwd
+	 * @param confim
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/user/updatepassword")
+	public String updatepassword(Model model,String oldpwd,String newpwd,String confim,
+			HttpServletRequest request) {
+		System.out.println("/user/updatepassword");
+		if(oldpwd==null||oldpwd==""||newpwd==null||newpwd==""||confim==null||confim=="") {
+			return "/system/index/password";
+		}
+		if(!newpwd.equals(confim)) {
+			model.addAttribute("msg", "密码不一致");
+			model.addAttribute("oldpwd", oldpwd);
+			model.addAttribute("newpwd", newpwd);
+			model.addAttribute("confim", confim);
+			return "/system/index/password";
+		}
+		if(oldpwd.equals(newpwd)) {
+			model.addAttribute("msg", "新密码与原始密码不能一样");
+			model.addAttribute("oldpwd", oldpwd);
+			model.addAttribute("newpwd", newpwd);
+			model.addAttribute("confim", confim);
+			return "/system/index/password";
+		}
+		String account = (String) request.getSession().getAttribute("account");
+		User user=userService.getUserByAccount(account);
+		String md5Pass = DigestUtils.md5DigestAsHex(oldpwd.getBytes());
+		if(!md5Pass.equals(user.getSaltpassword())) {
+			model.addAttribute("msg", "原密码错误");
+			model.addAttribute("oldpwd", oldpwd);
+			model.addAttribute("newpwd", newpwd);
+			model.addAttribute("confim", confim);
+			return "/system/index/password";
+		}
+		if(!newpwd.equals(confim)) {
+			model.addAttribute("msg", "密码不一致");
+			model.addAttribute("oldpwd", oldpwd);
+			model.addAttribute("newpwd", newpwd);
+			model.addAttribute("confim", confim);
+			return "/system/index/password";
+		}
+		
+		try {
+			String md5pwd = DigestUtils.md5DigestAsHex(newpwd.getBytes());
+			userService.updatePasswordByAccount(account,md5pwd);
+			//清空session
+			request.getSession().invalidate();
+			System.out.println("session已清空");
+			model.addAttribute("account",account);
+			model.addAttribute("msg","密码修改成功");
+			return "/login";
+		} catch (Exception e) {
+			model.addAttribute("msg","修改失败");
+			return "/system/index/password";
+		}
+		
+		
+		
+	}
+	
+	@RequestMapping("/user/logout")
+	public String logout(HttpServletRequest request) {
+		//清空session
+		request.getSession().invalidate();
+		System.out.println("session已清空");
+		return "/login";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

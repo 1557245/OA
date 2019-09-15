@@ -29,4 +29,5 @@ public interface WorkService {
 
 	WorkPart<Work> showPartByWork1(int num, Integer curent, Work work, Integer year, Integer month);
 
+
 }

@@ -10,4 +10,6 @@ public interface UserMapper {
 	User selectUserByAccount(String account);
 	
 	void insertUser(@Param("account")String account, @Param("password")String password,@Param("eid")Integer eid);
+
+	void updatePasswordByAccount(@Param("account")String account, @Param("password") String newpwd);
 }

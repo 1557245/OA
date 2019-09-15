@@ -13,4 +13,6 @@ public interface UserService {
 	User getUserByAccount(String account);
 
 	void addUser(String account,String password,Integer eid);
+
+	void updatePasswordByAccount(String account, String newpwd);
 }

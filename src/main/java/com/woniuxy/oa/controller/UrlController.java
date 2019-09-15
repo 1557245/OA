@@ -36,7 +36,10 @@ public class UrlController {
 		model.addAttribute("work", work);
 		return "work/insert";
 	}
-	
+	@RequestMapping("/topassword")
+	public String topassword(Model model) {
+		return "system/index/password";
+	}
 	@RequestMapping("/toworkjs")
 	public WorkPart<Work> toworkjs(WorkPart<Work> lworks,Model model) {
 		return lworks;
